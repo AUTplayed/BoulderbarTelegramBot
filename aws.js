@@ -15,7 +15,8 @@ export const handler = async (event) => {
 				await sendMessage(chat.id, `Current boulderbar linz capacity: ${cap}%`)
 			}
 		} catch(e) {
-			console.log()
+			console.log(json);
+			throw e;	// log failure + error msg in aws
 		}
 	}	
 	const response = {
@@ -44,7 +45,7 @@ async function sendMessage(chatId, msg) {
 	});
 }
 
-// setup:
+// setup: run this once before deploying
 async function setup() {
 	const req = await fetch(baseUrl + "setWebhook", {
 		method: "POST",
